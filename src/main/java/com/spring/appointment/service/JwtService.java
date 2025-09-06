@@ -20,12 +20,11 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-    //1st secret key
-    //2nd expiration time
+
     @Value("${jwt.secret.key}")
     private String secretKey;
 
-    @Value("${jwt.expiration.time}") // Default 1 hour
+    @Value("${jwt.expiration.time}")
     private long expirationTime;
 
     private Key getSignInKey(){
@@ -33,7 +32,7 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    //3rd extracting email
+
     public String extractUserName(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -43,10 +42,7 @@ public class JwtService {
         return claims.get("userId", Long.class);
     }
 
-    //In JWT (JSON Web Token) terminology, a claim is
-    // simply a piece of information embedded inside the token’s payload.JWT like a sealed envelope
-    //method to extract claims
-    //the 1st step
+
     private Claims extractAllClaims(String token){
         return Jwts.parser()
                 .verifyWith((SecretKey) getSignInKey())
@@ -74,8 +70,7 @@ public class JwtService {
     }
 
     //generating web Token
-    //In code, the extraClaims parameter is a map of additional data you
-    // want to include inside the JWT when you generate it.
+
     public String generateToken(
             Map<String,Object> extraClaims,
             UserDetails userDetails){

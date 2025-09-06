@@ -17,7 +17,6 @@ import com.spring.appointment.service.JwtService;
 
 import java.io.IOException;
 
-//2nd step filter extends Once per request it filters  on every request fired by user
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
@@ -46,10 +45,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         jwt = authHeader.substring(7);
 
         userEmail=jwtService.extractUserName(jwt);
-        //check if user is not null so i have usename or i can extract email out
-        //of my JWT token and i want to check if user is not authenticated yet if so i dont
-        //need to  perform all the checks and updating security context , if it is authenticated i dont need to do all the process like So you need to perform authentication steps, e.g.,
-        // validate token, load user details, create authentication object., then pass to dispatcher servlet (controllers)
 
 
         if(userEmail!=null && SecurityContextHolder.getContext().getAuthentication()==null ) {

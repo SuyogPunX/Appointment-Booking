@@ -39,8 +39,6 @@ public class ApplicationConfig {
         return new BCryptPasswordEncoder();
     }
 
-    //What: Provides an AuthenticationManager bean built by Spring Security.
-    //Why: So you can inject and use it in your code to perform manual authentication (like during login).
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
